@@ -7,7 +7,7 @@ namespace samsonphp\minify\tests;
 
 // Include framework constants
 use samson\core\Core;
-use samson\core\ResourceMap;
+use samsonframework\resource\ResourceMap;
 use samsonphp\minify\Minify;
 
 require('vendor/samsonos/php_core/src/constants.php');
