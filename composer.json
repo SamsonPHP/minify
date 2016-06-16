@@ -1,10 +1,11 @@
 {
-    "name": "samsonphp/php_minify",
-    "description": "SamsonPHP deployment system",
+    "name": "samsonphp/minify",
+    "description": "SamsonPHP minification module",
     "keywords": [
-        "deployment",
-        "samsonphp",
-        "automation"
+        "minification",
+        "html minification",
+        "js minification",
+        "css minification"
     ],
     "authors": [
         {
@@ -13,7 +14,6 @@
         }
     ],
     "require": {
-        "samsonos/php_core": "1.*",
         "samsonphp/resource":"*"
     },
     "require-dev": {
@@ -23,9 +23,8 @@
     "homepage": "http://samsonos.com/",
     "autoload": {
         "classmap": ["src/"],
-        "psr-0": {
-            "samsonphp\\minify\\": "src/",
-            "samson\\minify\\": "src/"
+        "psr-4": {
+            "samsonphp\\minify\\": "src/"
         }
     }
 }
