@@ -17,6 +17,7 @@
   },
   "require": {
     "samsonphp/event": "1.*",
+    "natxet/CssMin": "3.*",
     "samsonphp/resource": "*"
   },
   "require-dev": {

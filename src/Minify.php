@@ -38,7 +38,7 @@ class Minify extends ExternalModule
         // If CSS resource has been updated
         if ($type === 'css') {
             // Read updated CSS resource file and compile it
-            $content = CSSMin::process($content);
+            $content = \CssMin::minify($content);
         } elseif ($type === 'js') {
             $content = JSMin::minify($content);
         }
