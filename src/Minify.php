@@ -1,5 +1,5 @@
 <?php
-namespace samson\minify;
+namespace samsonphp\minify;
 
 use samson\core\ExternalModule;
 use samsonphp\event\Event;

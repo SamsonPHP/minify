@@ -1,5 +1,5 @@
 <?php
-namespace samson\minify;
+namespace samsonphp\minify;
 
 /**
  * Compress CSS
@@ -18,42 +18,41 @@ namespace samson\minify;
 class CSSMin {
 
     /**
-     * Minify a CSS string
-     * 
-     * @param string $css
-     * 
+     * @var array options
+     */
+    protected $_options = null;
+    /**
+     * @var bool Are we "in" a hack?
+     *
+     * I.e. are some browsers targetted until the next comment?
+     */
+    protected $_inHack = FALSE;
+    
+    /**
+     * Constructor
+     *
      * @param array $options (currently ignored)
-     * 
+     *
+     * @return null
+     */
+    private function __construct($options)
+    {
+        $this->_options = $options;
+    }
+    
+    /**
+     * Minify a CSS string
+     *
+     * @param string $css
+     *
+     * @param array $options (currently ignored)
+     *
      * @return string
      */
     public static function process($css, $options = array())
     {
         $obj = new CSSMin($options);
         return $obj->_process($css);
-    }
-    
-    /**
-     * @var array options
-     */
-    protected $_options = null;
-    
-    /**
-     * @var bool Are we "in" a hack?
-     * 
-     * I.e. are some browsers targetted until the next comment?
-     */
-    protected $_inHack = FALSE;
-    
-    
-    /**
-     * Constructor
-     * 
-     * @param array $options (currently ignored)
-     * 
-     * @return null
-     */
-    private function __construct($options) {
-        $this->_options = $options;
     }
     
     /**

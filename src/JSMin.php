@@ -1,7 +1,7 @@
 <?php
-namespace samson\minify;
+namespace samsonphp\minify;
 
-use \Exception;
+use Exception;
 
 /**
  * jsmin.php - extended PHP implementation of Douglas Crockford's JSMin.
@@ -73,10 +73,24 @@ class JSMin {
     protected $lookAhead   = null;
     protected $output      = '';
 
+    public function __construct($input)
+    {
+        $this->input = $input;
+    }
+
+    /*
+     * Don't create a JSMin instance, instead use the static function minify,
+     * which checks for mb_string function overloading and avoids errors
+     * trying to re-minify the output of Closure Compiler
+     *
+     * @private
+     */
+
     /**
      * Minify Javascript
      *
      * @param string $js Javascript to be minified
+     *
      * @return string
      */
     public static function minify($js)
@@ -90,18 +104,6 @@ class JSMin {
         }
         $jsmin = new JSMin($js);
         return $jsmin->min();
-    }
-
-    /*
-     * Don't create a JSMin instance, instead use the static function minify,
-     * which checks for mb_string function overloading and avoids errors
-     * trying to re-minify the output of Closure Compiler
-     *
-     * @private
-     */
-    public function __construct($input)
-    {
-        $this->input = $input;
     }
     
     /**
@@ -218,32 +220,7 @@ class JSMin {
             // end case ACTION_DELETE_A_B
         }
     }
-    
-    protected function isRegexpLiteral()
-    {
-        if (FALSE !== strpos("\n{;(,=:[!&|?", $this->a)) { // we aren't dividing
-            return TRUE;
-        }
-        if (' ' === $this->a) {
-            $length = strlen($this->output);
-            if ($length < 2) { // weird edge case
-                return TRUE;
-            }
-            // you can't divide a keyword
-            if (preg_match('/(?:case|else|in|return|typeof)$/', $this->output, $m)) {
-                if ($this->output === $m[0]) { // odd but could happen
-                    return TRUE;
-                }
-                // make sure it's a keyword, not end of an identifier
-                $charBeforeKeyword = substr($this->output, $length - strlen($m[0]) - 1, 1);
-                if (! $this->isAlphaNum($charBeforeKeyword)) {
-                    return TRUE;
-                }
-            }
-        }
-        return FALSE;
-    }
-    
+
     /**
      * Get next char. Convert ctrl char to space.
      */
@@ -267,6 +244,26 @@ class JSMin {
         }
         return $c;
     }
+
+    /**
+     * Get the next character, skipping over comments.
+     * Some comments may be preserved.
+     */
+    protected function next()
+    {
+        $get = $this->get();
+        if ($get !== '/') {
+            return $get;
+        }
+        switch ($this->peek()) {
+            case '/':
+                return $this->singleLineComment();
+            case '*':
+                return $this->multipleLineComment();
+            default:
+                return $get;
+        }
+    }
     
     /**
      * Get next char. If is ctrl character, translate to a space or newline.
@@ -276,15 +273,7 @@ class JSMin {
         $this->lookAhead = $this->get();
         return $this->lookAhead;
     }
-    
-    /**
-     * Is $c a letter, digit, underscore, dollar sign, escape, or non-ASCII?
-     */
-    protected function isAlphaNum($c)
-    {
-        return (preg_match('/^[0-9a-zA-Z_\\$\\\\]$/', $c) || ord($c) > 126);
-    }
-    
+
     protected function singleLineComment()
     {
         $comment = '';
@@ -300,7 +289,7 @@ class JSMin {
             }
         }
     }
-    
+
     protected function multipleLineComment()
     {
         $this->get();
@@ -328,22 +317,38 @@ class JSMin {
             $comment .= $get;
         }
     }
+
+    protected function isRegexpLiteral()
+    {
+        if (FALSE !== strpos("\n{;(,=:[!&|?", $this->a)) { // we aren't dividing
+            return TRUE;
+        }
+        if (' ' === $this->a) {
+            $length = strlen($this->output);
+            if ($length < 2) { // weird edge case
+                return TRUE;
+            }
+            // you can't divide a keyword
+            if (preg_match('/(?:case|else|in|return|typeof)$/', $this->output, $m)) {
+                if ($this->output === $m[0]) { // odd but could happen
+                    return TRUE;
+                }
+                // make sure it's a keyword, not end of an identifier
+                $charBeforeKeyword = substr($this->output, $length - strlen($m[0]) - 1, 1);
+                if (!$this->isAlphaNum($charBeforeKeyword)) {
+                    return TRUE;
+                }
+            }
+        }
+        return FALSE;
+    }
     
     /**
-     * Get the next character, skipping over comments.
-     * Some comments may be preserved.
+     * Is $c a letter, digit, underscore, dollar sign, escape, or non-ASCII?
      */
-    protected function next()
+    protected function isAlphaNum($c)
     {
-        $get = $this->get();
-        if ($get !== '/') {
-            return $get;
-        }
-        switch ($this->peek()) {
-            case '/': return $this->singleLineComment();
-            case '*': return $this->multipleLineComment();
-            default: return $get;
-        }
+        return (preg_match('/^[0-9a-zA-Z_\\$\\\\]$/', $c) || ord($c) > 126);
     }
 }
 
