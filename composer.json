@@ -13,8 +13,11 @@
       "email": "egorov@samsonos.com"
     }
   ],
+  "replace": {
+    "samsonos/php_minify": "*"
+  },
   "require": {
-    "samsonphp/event": "*",
+    "samsonphp/event": "1.*",
     "samsonphp/resource": "*"
   },
   "require-dev": {
