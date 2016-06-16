@@ -40,7 +40,7 @@ class Minify extends ExternalModule
             // Read updated CSS resource file and compile it
             $content = \CssMin::minify($content);
         } elseif ($type === 'js') {
-            $content = JSMin::minify($content);
+            $content = \JShrink\Minifier::minify($content);
         }
     }
 }
