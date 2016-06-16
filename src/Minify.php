@@ -22,6 +22,7 @@ class Minify extends ExternalModule
      */
     public function prepare()
     {
+        // Bind resource router static resource creation event
         Event::subscribe(Router::EVENT_CREATED, array($this, 'renderer'));
 
         return parent::prepare();
