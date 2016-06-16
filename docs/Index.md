@@ -2,4 +2,3 @@
 
 ## CSS minification
 ## JS minification
-## HTML minification

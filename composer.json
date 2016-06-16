@@ -3,7 +3,6 @@
   "description": "SamsonPHP minification module",
   "keywords": [
     "minification",
-    "html minification",
     "js minification",
     "css minification"
   ],
