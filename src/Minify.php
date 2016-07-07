@@ -23,23 +23,24 @@ class Minify extends ExternalModule
     public function prepare()
     {
         // Bind resource router static resource creation event
-        Event::subscribe(Router::EVENT_CREATED, array($this, 'renderer'));
+        Event::subscribe(Router::E_RESOURCE_COMPILE, array($this, 'renderer'));
     }
 
     /**
      * New resource file update handler.
      *
-     * @param string $type    Resource type(extension)
-     * @param string $content Resource content
+     * @param string $resource  Resource full path
+     * @param string $extension Resource extension
+     * @param string $content   Compiled output resource content
      */
-    public function renderer($type, &$content)
+    public function renderer($resource, &$extension, &$content)
     {
         // If CSS resource has been updated
-        if ($type === 'css') {
+        if ($extension === 'css') {
             // Read updated CSS resource file and compile it
-            $content = \CssMin::minify($content);
-        } elseif ($type === 'js') {
-            $content = \JShrink\Minifier::minify($content);
+            $content = \CssMin::minify(file_get_contents($resource));
+        } elseif ($extension === 'js') {
+            $content = \JShrink\Minifier::minify(file_get_contents($resource));
         }
     }
 }
