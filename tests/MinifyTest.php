@@ -29,10 +29,11 @@ class MinifyTest extends \PHPUnit_Framework_TestCase
     public function testCSSMinification()
     {
         $css = 'a { color: red; }';
+        $ext = 'css';
         $expected = 'a{color:red}';
 
         $this->module->prepare();
-        $this->module->renderer('css', $css);
+        $this->module->renderer('', $ext, $css);
 
         $this->assertEquals($expected, $css);
     }
@@ -40,10 +41,11 @@ class MinifyTest extends \PHPUnit_Framework_TestCase
     public function testJSMinification()
     {
         $js = 'var a = 1;';
+        $ext = 'js';
         $expected = 'var a=1;';
 
         $this->module->prepare();
-        $this->module->renderer('js', $js);
+        $this->module->renderer('', $ext, $js);
 
         $this->assertEquals($expected, $js);
     }
