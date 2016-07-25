@@ -22,6 +22,7 @@ class Minify extends ExternalModule
      */
     public function prepare()
     {
+        // TODO: Should be binded to compressor events instead of resource events
         // Bind resource router static resource creation event
         Event::subscribe(Router::E_RESOURCE_COMPILE, array($this, 'renderer'));
     }
