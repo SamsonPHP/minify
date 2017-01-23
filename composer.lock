@@ -4,36 +4,9 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "7967ea6152ca3352e1d3edae31a34ecc",
-    "content-hash": "c7a59070fcc21b3a818c42389418f197",
+    "hash": "f8ea773d755f6d2f5eb0599fc43105b0",
+    "content-hash": "968b7803c731a25e1864c222a77177e0",
     "packages": [
-        {
-            "name": "container-interop/container-interop",
-            "version": "1.1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/container-interop/container-interop.git",
-                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/container-interop/container-interop/zipball/fc08354828f8fd3245f77a66b9e23a6bca48297e",
-                "reference": "fc08354828f8fd3245f77a66b9e23a6bca48297e",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Interop\\Container\\": "src/Interop/Container/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Promoting the interoperability of container objects (DIC, SL, etc.)",
-            "time": "2014-12-30 15:22:37"
-        },
         {
             "name": "filp/whoops",
             "version": "2.1.5",
@@ -143,23 +116,20 @@
         },
         {
             "name": "samsonframework/base",
-            "version": "1.0.6",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/samsonframework/base.git",
-                "reference": "01911e93ce9da734d0cf117514e065efbc7bb686"
+                "reference": "f3c32633241bb952ce7a0c40ca870072d3864948"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/samsonframework/base/zipball/01911e93ce9da734d0cf117514e065efbc7bb686",
-                "reference": "01911e93ce9da734d0cf117514e065efbc7bb686",
+                "url": "https://api.github.com/repos/samsonframework/base/zipball/f3c32633241bb952ce7a0c40ca870072d3864948",
+                "reference": "f3c32633241bb952ce7a0c40ca870072d3864948",
                 "shasum": ""
             },
-            "require": {
-                "container-interop/container-interop": "^1.1"
-            },
             "require-dev": {
-                "phpunit/phpunit": "5.*"
+                "phpunit/phpunit": "4.2.*"
             },
             "type": "library",
             "extra": {
@@ -167,6 +137,9 @@
                 "samson_module_include": "1"
             },
             "autoload": {
+                "classmap": [
+                    "src/"
+                ],
                 "psr-4": {
                     "samsonframework\\": "src/"
                 }
@@ -188,7 +161,7 @@
                 "interfaces",
                 "samsonframework"
             ],
-            "time": "2016-08-23 06:30:13"
+            "time": "2016-08-22 15:18:40"
         },
         {
             "name": "samsonframework/resource",
