@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 namespace samsonphp\minify;
 
 use samson\core\ExternalModule;
+use samsonphp\compressor\Compressor;
 use samsonphp\event\Event;
-use samsonphp\resource\Router;
 
 /**
  * SamsonPHP minification module.
@@ -22,19 +22,19 @@ class Minify extends ExternalModule
      */
     public function prepare()
     {
-        // TODO: Should be binded to compressor events instead of resource events
-        // Bind resource router static resource creation event
-        Event::subscribe(Router::E_RESOURCE_COMPILE, array($this, 'renderer'));
+        // Subscribe to compressor resource management
+        if (class_exists(Compressor::class, false)) {
+            Event::subscribe(Compressor::E_RESOURCE_COMPRESS, [$this, 'renderer']);
+        }
     }
 
     /**
      * New resource file update handler.
      *
-     * @param string $resource  Resource full path
      * @param string $extension Resource extension
      * @param string $content   Compiled output resource content
      */
-    public function renderer($resource, &$extension, &$content)
+    public function renderer(&$extension, &$content)
     {
         // If CSS resource has been updated
         if ($extension === 'css') {

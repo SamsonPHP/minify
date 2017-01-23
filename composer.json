@@ -19,7 +19,7 @@
     "samsonphp/event": "1.*",
     "natxet/CssMin": "3.*",
     "tedivm/jshrink": "~1.0",
-    "samsonphp/resource": "*"
+    "samsonos/php_compressor": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "5.*"
