@@ -34,7 +34,7 @@ class Minify extends ExternalModule
      * @param string $extension Resource extension
      * @param string $content   Compiled output resource content
      */
-    public function renderer(&$extension, &$content)
+    public function renderer($extension, &$content)
     {
         // If CSS resource has been updated
         if ($extension === 'css') {
